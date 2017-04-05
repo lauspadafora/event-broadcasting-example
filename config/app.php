@@ -177,7 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiServiceProvider::class
+        Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiServiceProvider::class,
+        Zalazdi\LaravelImap\Providers\LaravelServiceProvider::class,
+        Webklex\IMAP\Providers\LaravelServiceProvider::class,
     ],
 
     /*
@@ -226,7 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'TwitterStreamingApi' => Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade::class
+        'TwitterStreamingApi' => Spatie\LaravelTwitterStreamingApi\TwitterStreamingApiFacade::class,
+        'Client' => Webklex\IMAP\Facades\Client::class
     ],
 
 ];

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11282,17 +11282,20 @@ __webpack_require__(32);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(42));
+Vue.component('example', __webpack_require__(43));
 
-Vue.component('chatroom-messages', __webpack_require__(40));
+Vue.component('chatroom-messages', __webpack_require__(41));
 Vue.component('chatroom-messages-js', __webpack_require__(33));
-Vue.component('new-message', __webpack_require__(44));
-Vue.component('new-message-js', __webpack_require__(36));
+Vue.component('new-message', __webpack_require__(46));
+Vue.component('new-message-js', __webpack_require__(37));
 
-Vue.component('direct-messages', __webpack_require__(41));
+Vue.component('direct-messages', __webpack_require__(42));
 Vue.component('direct-messages-js', __webpack_require__(34));
-Vue.component('mentions', __webpack_require__(43));
-Vue.component('mentions-js', __webpack_require__(35));
+Vue.component('mentions', __webpack_require__(45));
+Vue.component('mentions-js', __webpack_require__(36));
+
+Vue.component('incoming-emails', __webpack_require__(44));
+Vue.component('incoming-emails-js', __webpack_require__(35));
 
 var app = new Vue({
   el: '#app'
@@ -12180,10 +12183,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
-window._ = __webpack_require__(39);
+window._ = __webpack_require__(40);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12193,7 +12196,7 @@ window._ = __webpack_require__(39);
 
 window.$ = window.jQuery = __webpack_require__(3);
 
-__webpack_require__(37);
+__webpack_require__(38);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12201,7 +12204,7 @@ __webpack_require__(37);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(50);
+window.Vue = __webpack_require__(52);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12290,6 +12293,34 @@ module.exports = {
 module.exports = {
     data: function data() {
         return {
+            emails: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        Echo.channel('new-incoming-email-channel').listen('NewIncomingEmailEvent', function (data) {
+            _this.emails.push({
+                from: data.email.from[0].mail + ' <' + data.email.from[0].personal + '>',
+                to: data.email.to[0].mail + ' <' + data.email.to[0].personal + '>',
+                date: data.email.date.date,
+                subject: data.email.subject,
+                message_id: data.email.message_id,
+                body_text: data.email.body_text
+            });
+        });
+    },
+
+    methods: {}
+};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+module.exports = {
+    data: function data() {
+        return {
             mentions: []
         };
     },
@@ -12309,7 +12340,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -12337,7 +12368,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -14721,7 +14752,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -15495,7 +15526,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32584,23 +32615,23 @@ module.exports = Echo;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(51)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(53)(module)))
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(45),
+  __webpack_require__(49),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\broadcasting-example\\resources\\assets\\js\\components\\ChatroomMessages.vue"
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\ChatroomMessages.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatroomMessages.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32611,43 +32642,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-664fba91", Component.options)
+    hotAPI.createRecord("data-v-31e7a038", Component.options)
   } else {
-    hotAPI.reload("data-v-664fba91", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  null,
-  /* template */
-  __webpack_require__(47),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\broadcasting-example\\resources\\assets\\js\\components\\DirectMessages.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DirectMessages.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-782f8872", Component.options)
-  } else {
-    hotAPI.reload("data-v-782f8872", Component.options)
+    hotAPI.reload("data-v-31e7a038", Component.options)
   }
 })()}
 
@@ -32660,17 +32657,17 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(31),
+  null,
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(47),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\broadcasting-example\\resources\\assets\\js\\components\\Example.vue"
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\DirectMessages.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] DirectMessages.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -32679,9 +32676,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-84e00630", Component.options)
+    hotAPI.createRecord("data-v-01d7e9da", Component.options)
   } else {
-    hotAPI.reload("data-v-84e00630", Component.options)
+    hotAPI.reload("data-v-01d7e9da", Component.options)
   }
 })()}
 
@@ -32694,17 +32691,17 @@ module.exports = Component.exports
 
 var Component = __webpack_require__(1)(
   /* script */
-  null,
+  __webpack_require__(31),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(50),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\broadcasting-example\\resources\\assets\\js\\components\\Mentions.vue"
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\Example.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Mentions.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -32713,9 +32710,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-752f04bb", Component.options)
+    hotAPI.createRecord("data-v-d57ca396", Component.options)
   } else {
-    hotAPI.reload("data-v-752f04bb", Component.options)
+    hotAPI.reload("data-v-d57ca396", Component.options)
   }
 })()}
 
@@ -32730,15 +32727,15 @@ var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(63),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\broadcasting-example\\resources\\assets\\js\\components\\NewMessage.vue"
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\IncomingEmails.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] NewMessage.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] IncomingEmails.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -32747,9 +32744,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-e5c6fc8e", Component.options)
+    hotAPI.createRecord("data-v-ee9ad4bc", Component.options)
   } else {
-    hotAPI.reload("data-v-e5c6fc8e", Component.options)
+    hotAPI.reload("data-v-ee9ad4bc", Component.options)
   }
 })()}
 
@@ -32760,69 +32757,69 @@ module.exports = Component.exports
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('chatroom-messages-js', {
-    inlineTemplate: {
-      render: function() {
-        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-          return _c('div', {
-            staticClass: "col-md-6"
-          }, [_c('div', {
-            staticClass: "panel panel-default"
-          }, [_c('div', {
-            staticClass: "panel-heading"
-          }, [_vm._v("Chatroom Messages")]), _vm._v(" "), _c('div', {
-            staticClass: "panel-body"
-          }, _vm._l((_vm.messages), function(message) {
-            return _c('ul', [_c('li', [_c('b', [_vm._v(_vm._s(message.name) + " says:")]), _vm._v(" " + _vm._s(message.msg)), _c('br'), _vm._v(" "), _c('small', [_vm._v("Sent at: " + _vm._s(message.date))])])])
-          }))])])
-        
-      },
-      staticRenderFns: []
-    }
-  })
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
+var Component = __webpack_require__(1)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(51),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\Mentions.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Mentions.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
   module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-664fba91", module.exports)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d89905e4", Component.options)
+  } else {
+    hotAPI.reload("data-v-d89905e4", Component.options)
   }
-}
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('mentions-js', {
-    inlineTemplate: {
-      render: function() {
-        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-          return _c('div', {
-            staticClass: "col-md-6"
-          }, [_c('div', {
-            staticClass: "panel panel-default"
-          }, [_c('div', {
-            staticClass: "panel-heading"
-          }, [_vm._v("Twitter Mentions")]), _vm._v(" "), _c('div', {
-            staticClass: "panel-body"
-          }, _vm._l((_vm.mentions), function(m) {
-            return _c('ul', [_c('li', [_vm._v("\n                        " + _vm._s(m.text) + "\n                        "), _c('br'), _vm._v(" "), _c('small', [_vm._v("From: " + _vm._s(m.user_screen_name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', [_vm._v("Sent at: " + _vm._s(m.created_at))])])])
-          }))])])
-        
-      },
-      staticRenderFns: []
-    }
-  })
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
+var Component = __webpack_require__(1)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(48),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\Laura Alejandra\\DEV\\event-broadcasting-example\\resources\\assets\\js\\components\\NewMessage.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NewMessage.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
   module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-752f04bb", module.exports)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1c64314c", Component.options)
+  } else {
+    hotAPI.reload("data-v-1c64314c", Component.options)
   }
-}
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 47 */
@@ -32854,41 +32851,12 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-782f8872", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-01d7e9da", module.exports)
   }
 }
 
 /***/ }),
 /* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-84e00630", module.exports)
-  }
-}
-
-/***/ }),
-/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33006,12 +32974,109 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-e5c6fc8e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-1c64314c", module.exports)
+  }
+}
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('chatroom-messages-js', {
+    inlineTemplate: {
+      render: function() {
+        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+          return _c('div', {
+            staticClass: "col-md-6"
+          }, [_c('div', {
+            staticClass: "panel panel-default"
+          }, [_c('div', {
+            staticClass: "panel-heading"
+          }, [_vm._v("Chatroom Messages")]), _vm._v(" "), _c('div', {
+            staticClass: "panel-body"
+          }, _vm._l((_vm.messages), function(message) {
+            return _c('ul', [_c('li', [_c('b', [_vm._v(_vm._s(message.name) + " says:")]), _vm._v(" " + _vm._s(message.msg)), _c('br'), _vm._v(" "), _c('small', [_vm._v("Sent at: " + _vm._s(message.date))])])])
+          }))])])
+        
+      },
+      staticRenderFns: []
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-31e7a038", module.exports)
   }
 }
 
 /***/ }),
 /* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-8 col-md-offset-2"
+  }, [_c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d57ca396", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('mentions-js', {
+    inlineTemplate: {
+      render: function() {
+        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+          return _c('div', {
+            staticClass: "col-md-6"
+          }, [_c('div', {
+            staticClass: "panel panel-default"
+          }, [_c('div', {
+            staticClass: "panel-heading"
+          }, [_vm._v("Twitter Mentions")]), _vm._v(" "), _c('div', {
+            staticClass: "panel-body"
+          }, _vm._l((_vm.mentions), function(m) {
+            return _c('ul', [_c('li', [_vm._v("\n                        " + _vm._s(m.text) + "\n                        "), _c('br'), _vm._v(" "), _c('small', [_vm._v("From: " + _vm._s(m.user_screen_name))]), _vm._v(" "), _c('br'), _vm._v(" "), _c('small', [_vm._v("Sent at: " + _vm._s(m.created_at))])])])
+          }))])])
+        
+      },
+      staticRenderFns: []
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d89905e4", module.exports)
+  }
+}
+
+/***/ }),
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42264,7 +42329,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(10)))
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42292,12 +42357,60 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('incoming-emails-js', {
+    inlineTemplate: {
+      render: function() {
+        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+          return _c('div', {
+            staticClass: "col-md-12"
+          }, [_c('div', {
+            staticClass: "panel panel-default"
+          }, [_c('div', {
+            staticClass: "panel-heading"
+          }, [_vm._v("Incoming Emails")]), _vm._v(" "), _c('div', {
+            staticClass: "panel-body"
+          }, [_c('div', {
+            staticClass: "row"
+          }, _vm._l((_vm.emails), function(email) {
+            return _c('div', {
+              staticClass: "col-md-6"
+            }, [_c('div', {
+              staticClass: "well"
+            }, [_c('small', [_vm._v("From: " + _vm._s(email.from))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("To: " + _vm._s(email.to))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("Date: " + _vm._s(email.date))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Subject: ")]), _vm._v(_vm._s(email.subject))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Body: ")]), _vm._v(_vm._s(email.body_text))])])])
+          }))])])])
+        
+      },
+      staticRenderFns: []
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ee9ad4bc", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ListeningTwitter::class
+        Commands\ListeningTwitter::class,
+        Commands\ConnectToEmail::class
     ];
 
     /**

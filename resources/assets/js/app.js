@@ -24,6 +24,8 @@ Vue.component('direct-messages-js', require('./components/DirectMessages'));
 Vue.component('mentions', require('./components/Mentions.vue'));
 Vue.component('mentions-js', require('./components/Mentions'));
 
+Vue.component('incoming-emails', require('./components/IncomingEmails.vue'));
+Vue.component('incoming-emails-js', require('./components/IncomingEmails'));
 
 const app = new Vue({
     el: '#app'
