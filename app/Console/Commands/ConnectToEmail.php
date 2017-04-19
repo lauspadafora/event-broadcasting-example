@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Webklex\IMAP\Client;
 use App\Events\NewIncomingEmailEvent;
+use PhpImap\Mailbox as ImapMailbox;
+use PhpImap\IncomingMail;
+use PhpImap\IncomingMailAttachment;
 
 class ConnectToEmail extends Command
 {
@@ -44,13 +47,13 @@ class ConnectToEmail extends Command
             'port'          => 993,
             'encryption'    => 'ssl',
             'validate_cert' => true,
-            'username'      => '',
-            'password'      => '',
+            'username'      => 'lauraortizmartinez@gmail.com',
+            'password'      => '4m4r1ll0$m0st4z4@.',
         ]);
 
         //Connect to the IMAP Server
         $oClient->connect();
-
+        
         //Get all Mailboxes
         $aMailboxes = $oClient->getFolders();
 
@@ -74,14 +77,23 @@ class ConnectToEmail extends Command
                     $attachments = Array();
 
                     foreach ($oMessage->attachments as $att) 
-                    {
+                    {                        
+                        $att->content = base64_encode($att->content);
                         $attachments[] = $att;
                     }                   
 
-                   // $newMessage['attachments'] = $oMessage->attachments;
+                    $newMessage['attachments'] = $attachments;
                     broadcast(new NewIncomingEmailEvent($newMessage));                    
                 }
             }            
         }
+
+        /*$mailbox = new ImapMailbox('{pop.gmail.com:995/pop3/ssl}INBOX', 'lauraortizmartinez@gmail.com', '4m4r1ll0$m0st4z4@.', __DIR__);
+        //$mailbox = new ImapMailbox('{imap.gmail.com:993/imap/ssl}INBOX', 'lauraortizmartinez@gmail.com', '4m4r1ll0$m0st4z4@.', __DIR__);
+        $mailsIds = $mailbox->searchMailbox('UNSEEN');
+        foreach($mailsIds as $mail) {
+            $mail = $mailbox->getMail($mail);
+            var_dump($mail->subject);
+        }*/
     }
 }

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 55);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -12204,7 +12204,7 @@ __webpack_require__(38);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(52);
+window.Vue = __webpack_require__(53);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12300,13 +12300,15 @@ module.exports = {
         var _this = this;
 
         Echo.channel('new-incoming-email-channel').listen('NewIncomingEmailEvent', function (data) {
+            console.log(data);
             _this.emails.push({
                 from: data.email.from[0].mail + ' <' + data.email.from[0].personal + '>',
                 to: data.email.to[0].mail + ' <' + data.email.to[0].personal + '>',
                 date: data.email.date.date,
                 subject: data.email.subject,
                 message_id: data.email.message_id,
-                body_text: data.email.body_text
+                body_text: data.email.body_text,
+                body_html: data.email.body_html
             });
         });
     },
@@ -32615,7 +32617,7 @@ module.exports = Echo;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(53)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(54)(module)))
 
 /***/ }),
 /* 41 */
@@ -32727,7 +32729,7 @@ var Component = __webpack_require__(1)(
   /* script */
   null,
   /* template */
-  __webpack_require__(63),
+  __webpack_require__(52),
   /* scopeId */
   null,
   /* cssModules */
@@ -33077,6 +33079,50 @@ if (false) {
 
 /***/ }),
 /* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('incoming-emails-js', {
+    inlineTemplate: {
+      render: function() {
+        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+          return _c('div', {
+            staticClass: "col-md-12"
+          }, [_c('div', {
+            staticClass: "panel panel-default"
+          }, [_c('div', {
+            staticClass: "panel-heading"
+          }, [_vm._v("Incoming Emails")]), _vm._v(" "), _c('div', {
+            staticClass: "panel-body"
+          }, [_c('div', {
+            staticClass: "row"
+          }, _vm._l((_vm.emails), function(email) {
+            return _c('div', {
+              staticClass: "col-md-6"
+            }, [_c('div', {
+              staticClass: "well"
+            }, [_c('small', [_vm._v("From: " + _vm._s(email.from))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("To: " + _vm._s(email.to))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("Date: " + _vm._s(email.date))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Subject: ")]), _vm._v(_vm._s(email.subject))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Body Html: ")]), _c('span', {
+              domProps: {
+                "innerHTML": _vm._s(email.body_html)
+              }
+            })])])])
+          }))])])])
+        
+      },
+      staticRenderFns: []
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ee9ad4bc", module.exports)
+  }
+}
+
+/***/ }),
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42329,7 +42375,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(10)))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42357,60 +42403,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
-
-/***/ }),
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('incoming-emails-js', {
-    inlineTemplate: {
-      render: function() {
-        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-          return _c('div', {
-            staticClass: "col-md-12"
-          }, [_c('div', {
-            staticClass: "panel panel-default"
-          }, [_c('div', {
-            staticClass: "panel-heading"
-          }, [_vm._v("Incoming Emails")]), _vm._v(" "), _c('div', {
-            staticClass: "panel-body"
-          }, [_c('div', {
-            staticClass: "row"
-          }, _vm._l((_vm.emails), function(email) {
-            return _c('div', {
-              staticClass: "col-md-6"
-            }, [_c('div', {
-              staticClass: "well"
-            }, [_c('small', [_vm._v("From: " + _vm._s(email.from))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("To: " + _vm._s(email.to))]), _c('br'), _vm._v(" "), _c('small', [_vm._v("Date: " + _vm._s(email.date))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Subject: ")]), _vm._v(_vm._s(email.subject))]), _c('br'), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Body: ")]), _vm._v(_vm._s(email.body_text))])])])
-          }))])])])
-        
-      },
-      staticRenderFns: []
-    }
-  })
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ee9ad4bc", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

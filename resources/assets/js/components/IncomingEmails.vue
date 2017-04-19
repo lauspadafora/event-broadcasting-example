@@ -11,7 +11,8 @@
                                 <small>To: {{ email.to }}</small><br/>
                                 <small>Date: {{ email.date }}</small><br/>
                                 <span><strong>Subject: </strong>{{ email.subject }}</span><br/>
-                                <span><strong>Body: </strong>{{ email.body_text }}</span>
+                                <!--<span><strong>Body Text: </strong>{{ email.body_text }}</span>-->
+                                <span><strong>Body Html: </strong><span v-html="email.body_html"></span></span>
                             </div>
                         </div>                   
                     </div>
